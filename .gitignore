@@ -1,19 +1,66 @@
-﻿*.ipch
-*.suo
-*.db
-*.pdb
-*.exe
-*.ilk
-.vs
-.tmp
-*.tlog
-*.obj
-*.idb
-*.log
-*.exp
-*.iobj
-*.ipdb
+# Prerequisites
+*.d
 
-Win32/
-x64/
-lib/
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+# *.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+# *.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Project specific VS and output folders
+Processing_Sample/.vs/
+Processing_Sample/CProcessing/x64/
+Processing_Sample/x64/
+Processing_Sample/CProcessing/Win32/
+Processing_Sample/Win32/
+Processing_Sample/CProcessing/lib/
+Processing_Empty/.vs/
+Processing_Empty/Win32/
+Processing_Empty/x64/
+Processing_Sample/CProcessingPackage/
+Processing_Sample/CProcessingPackageSG/
+*.user
