@@ -15,18 +15,15 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-void sandbox_init(void) {
-	CP_Vector vec_a = CP_Vector_Set(1, 0);
-	CP_Vector vec_b = CP_Vector_Set(0, 1);
-	float angleBetweenAB = CP_Vector_AngleCCW(vec_a, vec_b); // returns 270
-	float angleBetweenBA = CP_Vector_AngleCCW(vec_b, vec_a); // returns 90
+CP_Sound sound;
 
-	(void)angleBetweenAB;
-	(void)angleBetweenBA;
+void sandbox_init(void) {
+	sound = CP_Sound_Load("Assets/Snare.wav");
+
 }
 
 void sandbox_update(void) {
-
+	CP_Sound_Play(sound);
 }
 
 void sandbox_exit(void) {
