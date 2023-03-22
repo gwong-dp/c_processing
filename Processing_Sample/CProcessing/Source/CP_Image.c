@@ -19,11 +19,11 @@
 // Defines and Internal Variables:
 //------------------------------------------------------------------------------
 
-#define CP_INITIAL_IMAGE_COUNT 100
+#define CP_INITIAL_IMAGE_COUNT 1
 
 static CP_Image* images = NULL;
-static unsigned  image_num = 0;
-static unsigned  image_max = CP_INITIAL_IMAGE_COUNT;
+static size_t  image_num = 0;
+static size_t  image_max = CP_INITIAL_IMAGE_COUNT;
 
 //------------------------------------------------------------------------------
 // Internal Functions:
@@ -31,7 +31,7 @@ static unsigned  image_max = CP_INITIAL_IMAGE_COUNT;
 
 static CP_Image CP_CheckIfImageIsLoaded(const char* filepath)
 {
-	for (unsigned i = 0; i < image_num; ++i)
+	for (size_t i = 0; i < image_num; ++i)
 	{
 		if (images[i] && !strcmp(filepath, images[i]->filepath))
 		{
@@ -48,7 +48,11 @@ static void CP_AddImageHandle(CP_Image img)
 	if (images == NULL)
 	{
 		images = (CP_Image*)calloc(CP_INITIAL_IMAGE_COUNT, sizeof(CP_Image));
-	}
+		if (images == NULL) {
+			// NOTE: Hopefully, this doesn't happen.
+			return; 
+		}
+ 	}
 
 	// track the image handle for unloading
 	images[image_num++] = img;
@@ -59,6 +63,10 @@ static void CP_AddImageHandle(CP_Image img)
 		CP_Image * temp = images;
 		// allocate an array twice the size
 		images = (CP_Image*)calloc(image_max * 2, sizeof(CP_Image));
+		if (images == NULL) {
+			// THEN DO WHAT SIA???!
+		}
+
 		// copy over the old data
 		memcpy_s(images, image_max * 2 * sizeof(CP_Image), temp, image_max * sizeof(CP_Image));
 		// double the size
@@ -72,7 +80,7 @@ void CP_ImageShutdown(void)
 {
 	CP_CorePtr CORE = GetCPCore();
 	if (!CORE || !CORE->nvg) return;
-	for (unsigned i = 0; i < image_num; ++i)
+	for (size_t i = 0; i < image_num; ++i)
 	{
 		if (images[i]) // check if its null
 		{
@@ -212,6 +220,7 @@ CP_API void CP_Image_Free(CP_Image* img)
 	CP_CorePtr CORE = GetCPCore();
 	if (!CORE || !CORE->nvg) return;
 
+#if 0
 	for (unsigned i = 0; i < image_num; ++i)
 	{
 		if (images[i] && images[i] == *img)
@@ -220,6 +229,20 @@ CP_API void CP_Image_Free(CP_Image* img)
 			free(images[i]);
 			images[i] = NULL;
 			*img = NULL;
+			return;
+		}
+	}
+#endif
+
+	for (size_t i = 0; i < image_num; ++i)
+	{
+		if (images[i] && images[i] == *img) {
+			nvgDeleteImage(CORE->nvg, images[i]->handle); // free nanoVG's data
+			free(images[i]);		
+			*img = NULL;
+			// swap the last guy with this guy
+			images[--image_num] = images[i];
+
 			return;
 		}
 	}

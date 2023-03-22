@@ -1,5 +1,3 @@
-@echo off
-
 rem This is an attempt to write a better version of CreateLibraryPackage. 
 rem It will do the following:
 rem - Compile all the libraries required (x86/x64 Debug/Release)
@@ -10,12 +8,22 @@ rem It will not:
 rem - Touch or delete any of your project files. At all. 
 rem 
 
+@echo off
+
+where /q cl
+IF %ERRORLEVEL% == 0 (GOTO build)
+SET VC_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+IF NOT DEFINED LIB (IF EXIST "%VC_PATH%" (call "%VC_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64))
+
+
 rem --- Compilation Phase ---  
 echo === BEGIN COMPILING ===
 rem We assume that users have already installed the required VS2019, to the point where they can build from there
 rem This initializes the development environment for VS2019 in x64 mode
-SET VC_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
-IF NOT DEFINED LIB (IF EXIST "%VC_PATH%" (call "%VC_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64))
+
+
+
+:build
 devenv Processing_Sample.sln /rebuild "Debug|x64"
 devenv Processing_Sample.sln /rebuild "Release|x64"
 devenv Processing_Sample.sln /rebuild "Debug|x86"
