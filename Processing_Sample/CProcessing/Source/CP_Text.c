@@ -25,8 +25,6 @@
 
 VECT_GENERATE_TYPE(CP_Font)
 
-static CP_Font  _default_font = NULL;
-
 static vect_CP_Font* font_vector;
 
 //------------------------------------------------------------------------------
@@ -110,9 +108,6 @@ void CP_Text_Init(void)
 {
 	// initialize our vector
 	font_vector = vect_init_CP_Font(CP_INITIAL_FONT_COUNT);
-
-	// load the default font from internal binary resource data
-	_default_font = CP_Font_LoadInternal("./Assets/Exo2-Regular.ttf", true, Exo2_Regular_ttf, Exo2_Regular_ttf_size, 0);
 }
 
 void CP_Text_Shutdown(void)
@@ -138,11 +133,6 @@ void CP_Text_Shutdown(void)
 //------------------------------------------------------------------------------
 // Library Functions:
 //------------------------------------------------------------------------------
-
-CP_API CP_Font CP_Font_GetDefault(void)
-{
-	return _default_font;
-}
 
 CP_API CP_Font CP_Font_Load(const char* filepath)
 {
@@ -184,3 +174,4 @@ CP_API void CP_Font_DrawTextBox(const char* text, float x, float y, float rowWid
 
 	nvgTextBox(CORE->nvg, x, y, rowWidth, text, NULL);
 }
+

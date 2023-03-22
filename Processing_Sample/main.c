@@ -17,17 +17,21 @@
 
 CP_Sound sound;
 CP_Image img;
+CP_Font font; 
+
 void sandbox_init(void) {
 	///sound = CP_Sound_Load("Assets/Snare.wav");
-	img = CP_Image_Load("Assets/happy.png");
-	img = CP_Image_Load("Assets/justin1.png");
-	img = CP_Image_Load("Assets/justin2.png");
+	img = CP_Image_Load("Assets/nanamo.jpg");
+	img = CP_Image_Load("Assets/nanamo.jpg");
+	img = CP_Image_Load("Assets/nanamo.jpg");
+	img = CP_Image_Load("Assets/nanamo.jpg");
 
+	
 }
 
 void sandbox_update(void) {
 	//CP_Sound_Play(sound);
-	CP_Image_Draw(img, 200, 200, 200, 200, 255);
+	CP_Image_Draw(img, 200, 200, 200, 300, 255);
 }
 
 void sandbox_exit(void) {

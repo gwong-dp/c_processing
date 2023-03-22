@@ -28,6 +28,14 @@ static size_t  image_max = CP_INITIAL_IMAGE_COUNT;
 //------------------------------------------------------------------------------
 // Internal Functions:
 //------------------------------------------------------------------------------
+void CP_Image_Init(void) {
+	images = (CP_Image*)calloc(CP_INITIAL_IMAGE_COUNT, sizeof(CP_Image));
+	if (!images) {
+		fprintf(stderr, "Cannot initialize images\n");
+		exit(1);
+	}
+}
+
 
 static CP_Image CP_CheckIfImageIsLoaded(const char* filepath)
 {
@@ -44,19 +52,6 @@ static CP_Image CP_CheckIfImageIsLoaded(const char* filepath)
 
 static void CP_AddImageHandle(CP_Image img)
 {
-	// allocate the array if it doesnt exist
-	if (images == NULL)
-	{
-		images = (CP_Image*)calloc(CP_INITIAL_IMAGE_COUNT, sizeof(CP_Image));
-		if (images == NULL) {
-			// NOTE: Hopefully, this doesn't happen.
-			return; 
-		}
- 	}
-
-	// track the image handle for unloading
-	images[image_num++] = img;
-
 	if (image_num == image_max)
 	{
 		// store the current array
@@ -64,7 +59,8 @@ static void CP_AddImageHandle(CP_Image img)
 		// allocate an array twice the size
 		images = (CP_Image*)calloc(image_max * 2, sizeof(CP_Image));
 		if (images == NULL) {
-			// THEN DO WHAT SIA???!
+			fprintf(stderr, "Cannot expand image storage\n");
+			exit(1);
 		}
 
 		// copy over the old data
@@ -74,12 +70,22 @@ static void CP_AddImageHandle(CP_Image img)
 		// free the old array
 		free(temp);
 	}
+
+	// track the image handle for unloading
+	images[image_num++] = img;
+
 }
 
 void CP_ImageShutdown(void)
 {
+	if (image_num > 0) {
+		fprintf(stderr, "You forgot to call CP_Image_Free() on %lld images!\n", image_num);
+	}
+
 	CP_CorePtr CORE = GetCPCore();
 	if (!CORE || !CORE->nvg) return;
+
+
 	for (size_t i = 0; i < image_num; ++i)
 	{
 		if (images[i]) // check if its null
@@ -89,10 +95,8 @@ void CP_ImageShutdown(void)
 		}
 	}
 
-	
-	if (images) {
-		free(images);
-	}
+	free(images);
+
 }
 
 static void CP_Image_DrawInternal(CP_Image img, float x, float y, float w, float h, float s0, float t0, float s1, float t1, int alpha, float degrees)

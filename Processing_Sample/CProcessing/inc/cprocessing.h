@@ -150,6 +150,7 @@ CP_API void				CP_Graphics_EndShape				(void);
 //---------------------------------------------------------
 // IMAGE:
 //		All functions related to loading, creating, and drawing images
+CP_API void				CP_Image_Init						(void);
 CP_API CP_Image			CP_Image_Load						(const char* filepath);
 CP_API void				CP_Image_Free						(CP_Image* img);
 CP_API int				CP_Image_GetWidth					(CP_Image img);
@@ -188,12 +189,10 @@ CP_API float			CP_Sound_GetGroupPitch				(CP_SOUND_GROUP group);
 //---------------------------------------------------------
 // FONT:
 //		All functions related to loading and drawing fonts
-CP_API CP_Font			CP_Font_GetDefault					(void);
 CP_API CP_Font			CP_Font_Load						(const char* filepath);
 CP_API void				CP_Font_Set							(CP_Font font);
 CP_API void				CP_Font_DrawText					(const char* text, float x, float y);
 CP_API void				CP_Font_DrawTextBox					(const char* text, float x, float y, float rowWidth);
-
 
 //---------------------------------------------------------
 // INPUT:
