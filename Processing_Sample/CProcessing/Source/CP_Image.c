@@ -79,7 +79,7 @@ static void CP_AddImageHandle(CP_Image img)
 void CP_ImageShutdown(void)
 {
 	if (image_num > 0) {
-		fprintf(stderr, "You forgot to call CP_Image_Free() on %lld images!\n", image_num);
+		fprintf(stderr, "You forgot to call CP_Image_Free() on %zu images!\n", image_num);
 	}
 
 	CP_CorePtr CORE = GetCPCore();

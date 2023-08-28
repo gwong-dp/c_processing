@@ -1,3 +1,6 @@
+
+@echo off
+
 rem This is an attempt to write a better version of CreateLibraryPackage. 
 rem It will do the following:
 rem - Compile all the libraries required (x86/x64 Debug/Release)
@@ -8,11 +11,9 @@ rem It will not:
 rem - Touch or delete any of your project files. At all. 
 rem 
 
-@echo off
-
 where /q cl
 IF %ERRORLEVEL% == 0 (GOTO build)
-SET VC_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+SET VC_PATH=C:\Program Files\Microsoft Visual Studio\2022\Community
 IF NOT DEFINED LIB (IF EXIST "%VC_PATH%" (call "%VC_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64))
 
 
