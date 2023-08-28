@@ -1,10 +1,10 @@
 //---------------------------------------------------------
 // file:	main.c
-// author:	Justin Chambers
+// author:	Gerald Wong
 // brief:	Main entry point for the sample usage project
 //			of the CProcessing library
 //
-// Copyright © 2019 DigiPen, All rights reserved.
+// Copyright 2023 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
 #include <windows.h>
@@ -20,7 +20,7 @@ CP_Image img;
 CP_Font font; 
 
 void sandbox_init(void) {
-	///sound = CP_Sound_Load("Assets/Snare.wav");
+	//sound = CP_Sound_Load("Assets/Snare.wav");
 	img = CP_Image_Load("Assets/nanamo.jpg");
 	img = CP_Image_Load("Assets/nanamo.jpg");
 	img = CP_Image_Load("Assets/nanamo.jpg");
@@ -31,6 +31,7 @@ void sandbox_init(void) {
 
 void sandbox_update(void) {
 	//CP_Sound_Play(sound);
+	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 0));
 	CP_Image_Draw(img, 200, 200, 200, 300, 255);
 }
 
