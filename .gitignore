@@ -52,15 +52,8 @@ Mkfile.old
 dkms.conf
 
 # Project specific VS and output folders
-Processing_Sample/.vs/
-Processing_Sample/CProcessing/x64/
-Processing_Sample/x64/
-Processing_Sample/CProcessing/Win32/
-Processing_Sample/Win32/
-Processing_Sample/CProcessing/lib/
-Processing_Empty/.vs/
-Processing_Empty/Win32/
-Processing_Empty/x64/
-Processing_Sample/CProcessingPackage/
-Processing_Sample/CProcessingPackageSG/
-*.user
+.vs/
+.tmp/
+bin/
+lib/
+*.vcxproj.user
