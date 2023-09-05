@@ -224,7 +224,7 @@ CP_API void CP_Image_Free(CP_Image* img)
 	CP_CorePtr CORE = GetCPCore();
 	if (!CORE || !CORE->nvg) return;
 
-#if 0
+#if 0 
 	for (unsigned i = 0; i < image_num; ++i)
 	{
 		if (images[i] && images[i] == *img)
@@ -245,7 +245,7 @@ CP_API void CP_Image_Free(CP_Image* img)
 			free(images[i]);		
 			*img = NULL;
 			// swap the last guy with this guy
-			images[--image_num] = images[i];
+			images[i] = images[--image_num];
 
 			return;
 		}

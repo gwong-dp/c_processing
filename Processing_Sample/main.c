@@ -17,6 +17,7 @@
 
 CP_Sound sound;
 CP_Image img;
+CP_Image img2;
 CP_Font font; 
 
 void sandbox_init(void) {
@@ -27,6 +28,7 @@ void sandbox_init(void) {
 	img = CP_Image_Load("Assets/nanamo.jpg");
 	img = CP_Image_Load("Assets/nanamo.jpg");
 	img = CP_Image_Load("Assets/nanamo.jpg");
+	img2 = CP_Image_Load("Assets/justin1.png");
 
 	
 }
