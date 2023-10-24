@@ -140,17 +140,19 @@ CP_API float CP_Vector_Angle(CP_Vector a, CP_Vector b)
 	return CP_Math_Degrees((float)acos((double)(CP_Vector_DotProduct(a, b) / (CP_Vector_Length(a) * CP_Vector_Length(b)))));
 }
 
-CP_API float CP_Vector_AngleCCW(CP_Vector from, CP_Vector to) {
+CP_API float CP_Vector_AngleCW(CP_Vector from, CP_Vector to) {
 	// This takes into account that in CProcessing, x points right and y points down.
-
-	float rad = atan2f(from.x* to.y - from.y* to.x, from.x* to.x + from.y* to.y);
-	float ret = CP_Math_Degrees(rad) + 180.f;
+	float dot = from.x * to.x + from.y * to.y;
+	float det = from.x * to.y - from.y * to.x;
+	float rad = atan2f(det, dot);
+	float ret = CP_Math_Degrees(rad);
+	if (ret < 0) ret += 360;
 	// offset to keep it within [0, 360)
 	return ret; 
 }
 
-CP_API float CP_Vector_AngleCW(CP_Vector from, CP_Vector to) {
-	return 360.f - CP_Vector_AngleCCW(from, to);
+CP_API float CP_Vector_AngleCCW(CP_Vector from, CP_Vector to) {
+	return 360.f - CP_Vector_AngleCW(from, to);
 }
 
 

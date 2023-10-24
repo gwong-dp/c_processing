@@ -31,14 +31,23 @@ void sandbox_init(void) {
 	img2 = CP_Image_Load("Assets/justin1.png");
 
 	
+
+	
 }
 
 void sandbox_update(void) {
+	CP_Vector vec_a = CP_Vector_Set(1, 0);
+	CP_Vector vec_b = CP_Vector_Set(-1, 0);
+	float angleBetweenAB = CP_Vector_AngleCW(vec_a, vec_b); // returns 90
+	float angleBetweenBA = CP_Vector_AngleCW(vec_b, vec_a); // returns 270
+
+	(void)angleBetweenAB;
+	(void)angleBetweenBA;
 	//CP_Sound_Play(sound);
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 0));
 	CP_Image_Draw(img, 200, 200, 200, 300, 255);
 	CP_Font_DrawText("Hello World", 100.f, 100.f);
-
+	
 }
 
 void sandbox_exit(void) {
