@@ -79,7 +79,7 @@ CP_DrawInfoPtr GetDrawInfo(void);
 
 void CP_SetWindowSizeInternal(int new_width, int new_height, bool isFullscreen);
 
-void CP_Initialize(void);
+void CP_Initialize(CP_BOOL showConsole);
 void CP_Update(void);
 void CP_Shutdown(void);
 void CP_FrameStart(void);

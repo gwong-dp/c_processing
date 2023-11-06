@@ -53,7 +53,7 @@ extern "C"
 //---------------------------------------------------------
 // ENGINE:
 //		Functions managing code flow
-CP_API void				CP_Engine_Run						(void);
+CP_API void				CP_Engine_Run						(CP_BOOL showConsole);
 CP_API void				CP_Engine_Terminate					(void);
 CP_API void				CP_Engine_SetNextGameState			(FunctionPtr init, FunctionPtr update, FunctionPtr exit);
 CP_API void				CP_Engine_SetNextGameStateForced	(FunctionPtr init, FunctionPtr update, FunctionPtr exit);
