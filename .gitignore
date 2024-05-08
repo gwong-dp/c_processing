@@ -58,8 +58,12 @@ bin/
 lib/
 *.vcxproj.user
 
+# Wiki documentation
+site/
+
 # Others (TODO: please clean these up)
 Win32/
 x64/
 CProcessingPackage/
 CProcessingPackageSG/
+
