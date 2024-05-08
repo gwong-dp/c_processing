@@ -1,5 +1,8 @@
 site_name: C Processing
 
+plugins:
+  - offline
+  - search
 
 theme:
   name: material
