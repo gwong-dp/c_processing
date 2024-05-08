@@ -1,6 +1,7 @@
 Welcome to the CProcessing documentation wiki!
 
-If you have documentation requests or suggestions, or if you find any errors, feel free to submit an issue or a pull request.
+CProcessing is an inhouse game engine developed and maintained by DigiPen.
+This version is currently maintained specifically by DigiPen Singapore.
 
 # Documentation
 - [Engine](Engine.md)

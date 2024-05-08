@@ -2,9 +2,12 @@ site_name: C Processing
 
 
 theme:
-  name: readthedocs
+  name: material
   font: 
     text: Roboto
+  features:
+    - content.code.copy
+    - content.code.select
 
   palette: 
 
@@ -19,3 +22,12 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

@@ -27,7 +27,7 @@ IF NOT DEFINED LIB (IF EXIST "%VC_PATH%" (call "%VC_PATH%\VC\Auxiliary\Build\vcv
 pushd Processing_Sample
 
 rem --- Compilation Phase ---  
-echo === BEGIN COMPILING ===
+powershell write-host -fore Red === BUILDING DEVELOPMENT FILES  ===
 rem We assume that users have already installed the required VS2019, to the point where they can build from there
 rem This initializes the development environment for VS2019 in x64 mode
 
@@ -35,10 +35,8 @@ devenv Processing_Sample.sln /rebuild "Debug|x64"
 devenv Processing_Sample.sln /rebuild "Release|x64"
 devenv Processing_Sample.sln /rebuild "Debug|x86"
 devenv Processing_Sample.sln /rebuild "Release|x86"
-echo === END COMPILING ===
 
 rem --- Packaging Phase ---
-echo === BEGIN COPYING ===
 rmdir %package_dir% /s /q
 mkdir %package_dir%
 mkdir %package_dir%\CProcessing
@@ -49,33 +47,44 @@ mkdir %package_dir%\CProcessing\lib\x86
 
 rem -- Packaging CProcessing -- 
 rem x64
-xcopy CProcessing\lib\x64\CProcessing.lib %package_dir%\CProcessing\lib\x64 /s /r /y /q
-xcopy CProcessing\lib\x64\CProcessing.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q
-xcopy CProcessing\lib\x64\CProcessingd.lib %package_dir%\CProcessing\lib\x64 /s /r /y /q
-xcopy CProcessing\lib\x64\CProcessingd.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q
-xcopy CProcessing\lib\x64\fmod.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q
-xcopy CProcessing\lib\x64\fmodL.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q
+powershell write-host -fore Red === PACKAGING DEVELOPMENT FILES  ===
+xcopy CProcessing\lib\x64\CProcessing.lib %package_dir%\CProcessing\lib\x64 /s /r /y /q >nul
+xcopy CProcessing\lib\x64\CProcessing.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q >nul
+xcopy CProcessing\lib\x64\CProcessingd.lib %package_dir%\CProcessing\lib\x64 /s /r /y /q >nul
+xcopy CProcessing\lib\x64\CProcessingd.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q  >nul
+xcopy CProcessing\lib\x64\fmod.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q >nul
+xcopy CProcessing\lib\x64\fmodL.dll %package_dir%\CProcessing\lib\x64 /s /r /y /q >nul
 
 rem x86
-xcopy CProcessing\lib\x86\CProcessing.lib %package_dir%\CProcessing\lib\x86 /s /r /y /q
-xcopy CProcessing\lib\x86\CProcessing.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q
-xcopy CProcessing\lib\x86\CProcessingd.lib %package_dir%\CProcessing\lib\x86 /s /r /y /q
-xcopy CProcessing\lib\x86\CProcessingd.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q
-xcopy CProcessing\lib\x86\fmod.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q
-xcopy CProcessing\lib\x86\fmodL.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q
+xcopy CProcessing\lib\x86\CProcessing.lib %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
+xcopy CProcessing\lib\x86\CProcessing.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
+xcopy CProcessing\lib\x86\CProcessingd.lib %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
+xcopy CProcessing\lib\x86\CProcessingd.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
+xcopy CProcessing\lib\x86\fmod.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
+xcopy CProcessing\lib\x86\fmodL.dll %package_dir%\CProcessing\lib\x86 /s /r /y /q >nul
 
 rem inc
-xcopy CProcessing\inc\cprocessing.h %package_dir%\CProcessing\inc /s /r /y /q
-xcopy CProcessing\inc\cprocessing_common.h %package_dir%\CProcessing\inc /s /r /y /q
-echo === END COPYING ===
+xcopy CProcessing\inc\cprocessing.h %package_dir%\CProcessing\inc /s /r /y /q >nul
+xcopy CProcessing\inc\cprocessing_common.h %package_dir%\CProcessing\inc /s /r /y /q >nul
 
 popd
 
-rem --- Zipping phase --- 
-echo === BEGIN ZIPPING ===
-rem I hope you are on Powershell v5 or above...
-powershell Compress-Archive -Force -LiteralPath %package_dir% -DestinationPath %release_dir%\%package_name%
-echo === END ZIPPING ===
 
-rem -- Cleanup -- 
+rem -- Wiki building --
+powershell write-host -fore Red === BUILDING WIKI FILES ===
+pushd Wiki
+mkdocs build -d %package_dir%\Wiki
+popd
+
+
+rem rem --- Zipping phase --- 
+powershell write-host -fore Red === ZIPPING EVERYTHING ===
+powershell Compress-Archive -Force -Path %package_dir%\* -DestinationPath %release_dir%\%package_name%
+
+
+rem rem -- Cleanup -- 
+powershell write-host -fore Red === CLEAN UP ===
 rmdir %package_dir% /s /q
+
+
+powershell write-host -fore Red === DONE ===
